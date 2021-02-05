@@ -1,0 +1,73 @@
+﻿@using System.IO;
+@{
+    ViewData["Title"] = "My to-do list";
+}
+
+<header>
+    <img src="~/page/headview.png" class="headimg">
+    <h1>My to-do list</h1>
+    <form method="post" action="/Home/Adder">
+        <label class="adderinput"><input type="text" name="AddInput" placeholder="Enter a new task"></label>
+    <button type="submit" class="adderbutton">
+        <img class="png1" src="~/page/add.png"
+             style="height: 20px;">
+    </button>
+</form>
+</header>
+<main>
+    @{
+        string text = @"Files/FileInfo.txt";
+        int info = Convert.ToInt32(File.ReadAllText(text));
+        if (info != 0)
+        {
+            for (int i = 1; i <= info; i++)
+            {
+                string file = @"Files/" + i + 0 + ".txt";
+                int ch = 0;
+                if (System.IO.File.Exists(file) == false)
+                {
+                    file = @"Files/" + i + 1 + ".txt";
+                    ch = 1;
+                }
+                string task = System.IO.File.ReadAllText(file);
+                if (ch == 0)
+                {
+                    <div class="lab">
+
+                            <form method="post" action="/Home/ReChecker" id="form @i"><input type="hidden" value="@i" name="id" /><input type="hidden" value="@ch" name="check" /><button type="submit" class="notcheck"></button></form>
+                        <p class="ptask">@task</p>
+                        <form method="post" action="/Home/ReTasker" class="button"><input type="hidden" value="@i" name="id" /><input type="hidden" value="@ch" name="check" /><input type="text" name="RetInput" placeholder="Change the task"/><button type="submit"><img src="~/page/rename.png"></button></form>
+                        <form method="post" action="/Home/DelTask" class="deleter"><input type="hidden" value="@i" name="id" /><button type="submit"><img src="~/page/delet.png"></button></form>
+                    </div>
+                }
+
+            }
+            for (int i = 1; i <= info; i++)
+            {
+                string file = @"Files/" + i + 0 + ".txt";
+                int ch = 0;
+                if (System.IO.File.Exists(file) == false)
+                {
+                    file = @"Files/" + i + 1 + ".txt";
+                    ch = 1;
+                }
+                string task = System.IO.File.ReadAllText(file);
+
+                if (ch != 0)
+                {
+                    <div class="lab">
+                        <form method="post" action="/Home/ReChecker" id="form @i"><input type="hidden" value="@i" name="id" /><input type="hidden" value="@ch" name="check" /><button type="submit" class="check"></button></form>
+                        <p class="ptask">@task</p>
+                        <form method="post" action="/Home/ReTasker" class="button"><input type="hidden" value="@i" name="id" /><input type="hidden" value="@ch" name="check" /><input type="text" name="RetInput" placeholder="Change the task"/><button type="submit"><img src="~/page/rename.png"></button></form>
+                        <form method="post" action="/Home/DelTask" class="deleter"><input type="hidden" value="@i" name="id" /><button type="submit"><img src="~/page/delet.png"></button></form>
+                    </div>
+                }
+
+            }
+        }
+        else
+        {
+            <p class="nulltask">Ще нема жодного завдання</p>
+            }
+        }
+</main>

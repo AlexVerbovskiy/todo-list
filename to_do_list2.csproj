@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Img\**" />
+    <Content Remove="Img\**" />
+    <EmbeddedResource Remove="Img\**" />
+    <None Remove="Img\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
+</Project>
